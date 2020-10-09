@@ -10,7 +10,7 @@
         <Menu DockPanel.Dock="Top" Height="24" >
             <MenuItem Header="_File" Height="24">
                 <MenuItem Header="_Open Library File" Click="OpenLib_Click" />
-                <MenuItem Header="_Save Library File" Click="SaveLib_Click"/>
+                <MenuItem Name="menuItem_Save" Header="_Save Library File" IsEnabled="False" Click="SaveLib_Click"/>
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>

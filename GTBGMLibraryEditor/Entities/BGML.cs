@@ -14,7 +14,8 @@ namespace GTBGMLibraryEditor.Entities
     {
         public List<BGMLTrack> Tracks { get; private set; }
         public List<BGML_Playlist> Playlists { get; private set; }
-        public int Format;
+        public LibraryTrackFormat Format { get; set; }
+        public bool HasExtraTrackMetadata { get; set; }
 
         public const string MAGIC = "BGML";
 
@@ -74,9 +75,17 @@ namespace GTBGMLibraryEditor.Entities
                     BGMLTrack track = new BGMLTrack();
                     br.Position = trackTreeOffset + (i * 0x30);
                     int fileNameOffset = br.ReadInt32();
-                    bgml.Format = br.ReadInt32();
+                    bgml.Format = (LibraryTrackFormat)br.ReadInt32();
                     int idStringOffset = br.ReadInt32();
-                    br.Position += 8;
+                    br.Position += 4;
+
+                    // Don't make use of it yet
+                    int trackHeaderOffset = br.ReadInt32();
+                    if (!bgml.HasExtraTrackMetadata)
+                        bgml.HasExtraTrackMetadata = trackHeaderOffset != 0;
+
+                    track.Format = bgml.Format;
+
                     int trackNameOffset = br.ReadInt32();
                     int artistNameOffset = br.ReadInt32();
                     int genreNameoffset = br.ReadInt32();
@@ -194,7 +203,7 @@ namespace GTBGMLibraryEditor.Entities
                 {
                     br.Position = 0x30 + (i * 0x30);
                     br.WriteInt32(trackStringTable.GetStringOffset(Tracks[i].Label));
-                    br.WriteInt32(Format);
+                    br.WriteInt32((int)Tracks[i].Format);
                     br.WriteInt32(trackStringTable.GetStringOffset(Tracks[i].FileName));
                     br.Position += 8;
                     br.WriteInt32(trackStringTable.GetStringOffset(Tracks[i].TrackName));
@@ -247,5 +256,6 @@ namespace GTBGMLibraryEditor.Entities
 
             return playlistStrTable;
         }
+
     }
 }

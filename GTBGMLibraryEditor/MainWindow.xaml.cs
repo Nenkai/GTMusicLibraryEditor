@@ -55,6 +55,21 @@ namespace GTBGMLibraryEditor
 
                 UpdateTrackList();
                 UpdatePlaylistsList();
+
+                if (bgml.Format == LibraryTrackFormat.SXDF)
+                {
+                    MessageBox.Show($"This library uses SXDF headers (GTSP), and contains track metadata in it. It cannot be saved yet.", "Cannot save", MessageBoxButton.OK, MessageBoxImage.Information);
+                    menuItem_Save.IsEnabled = false;
+                }
+                else if (bgml.HasExtraTrackMetadata)
+                {
+                    MessageBox.Show($"This library contains track metadata for each track. It cannot be saved yet.", "Cannot save", MessageBoxButton.OK, MessageBoxImage.Information);
+                    menuItem_Save.IsEnabled = false;
+                }
+                else
+                {
+                    menuItem_Save.IsEnabled = true;
+                }
             }
         }
 
