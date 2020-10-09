@@ -74,7 +74,7 @@ namespace GTBGMLibraryEditor.Entities
                     BGMLTrack track = new BGMLTrack();
                     br.Position = trackTreeOffset + (i * 0x30);
                     int fileNameOffset = br.ReadInt32();
-                    Format = br.ReadInt32();
+                    bgml.Format = br.ReadInt32();
                     int idStringOffset = br.ReadInt32();
                     br.Position += 8;
                     int trackNameOffset = br.ReadInt32();
