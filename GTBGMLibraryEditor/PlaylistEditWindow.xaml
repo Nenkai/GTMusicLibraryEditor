@@ -1,0 +1,35 @@
+﻿<Window x:Class="GTBGMLibraryEditor.PlaylistEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GTBGMLibraryEditor"
+        mc:Ignorable="d"
+        Title="PlaylistEditWindow" Height="450" Width="800"
+        Loaded="Window_Loaded">
+    <DockPanel LastChildFill="True">
+        <DockPanel DockPanel.Dock="Top" Height="30" Background="DarkGray" LastChildFill="True">
+            <Button DockPanel.Dock="Right" Name="btn_AddTrack" Content="Add Track" Click="btn_AddTrack_Click"/>
+            <ComboBox DockPanel.Dock="Left" Name="cb_TrackPicker" />
+        </DockPanel>
+        <ListView Name="lv_PlaylistTracks" DockPanel.Dock="Right">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" Width="40"/>
+                    <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}" Width="140"/>
+                    <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}" Width="60"/>
+                    <GridViewColumn Header="Track Name" DisplayMemberBinding="{Binding TrackName}"  Width="300"/>
+                    <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}" Width="160"/>
+                    <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}"  Width="120"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Remove" Click="lvContextTrackPlaylist_Remove"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+
+    </DockPanel>
+
+</Window>
