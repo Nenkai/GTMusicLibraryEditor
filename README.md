@@ -7,3 +7,5 @@ Allows you to add built in tracks into the games, aswell as change the playlists
 ## Note
 For the ingame custom track picker, the list is saved into the save data, and thus will require save edit/clear to display the proper changes and available tracks to chose from.
 You can still add and remove tracks from specific sections of the games.
+
+# [DOWNLOAD LINK](https://github.com/Nenkai/GTBGMLibraryEditor/releases)
