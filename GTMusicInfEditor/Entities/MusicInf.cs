@@ -209,6 +209,8 @@ namespace GTMusicInfEditor.Entities
                         br.WriteInt32(trackStringTable.GetStringOffset(track.TrackName));
                         br.WriteInt32(trackStringTable.GetStringOffset(track.Artist));
                         br.WriteInt32(trackStringTable.GetStringOffset(track.Genre));
+                        if (Type == PlaylistType.SEQ)
+                            br.WriteInt32(j);
                     }
 
                     br.Position = 0x14 + (0x08 * i);
