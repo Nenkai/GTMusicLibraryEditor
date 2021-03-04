@@ -1,0 +1,22 @@
+﻿<Window x:Class="GTMusicInfEditor.TrackEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GTMusicInfEditor"
+        mc:Ignorable="d"
+        Title="Track Edit/Add" Height="230" Width="500">
+    <Grid>
+        <Label Content="Track Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="74"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="74"/>
+        <Label Content="File Name" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="74"/>
+        <Label Content="Artist" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="74"/>
+        <Label Content="Genre" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="74"/>
+        <Button Content="Save" Margin="407,165,10,0" VerticalAlignment="Top" Height="24" Click="ButtonSave_Click"/>
+        <TextBox Height="23" Name="tb_TrackName" Text="{Binding Path=TrackName, Mode=OneWay}" Margin="89,14,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Height="23" Name="tb_Label" Text="{Binding Path=Label, Mode=OneWay}" Margin="89,45,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Height="23" Name="tb_FileName" Text="{Binding Path=FileName, Mode=OneWay}" Margin="89,75,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Height="23" Name="tb_Artist" Text="{Binding Path=Artist, Mode=OneWay}" Margin="89,106,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Height="23" Name="tb_Genre" Text="{Binding Path=Genre, Mode=OneWay}" Margin="89,137,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9799089C-45EB-429C-AB3C-71679F0B1B6F}</ProjectGuid>
+    <ProjectGuid>{BB5BC850-2334-464D-9C71-CA441D5006FE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>GTBGMLibraryEditor</RootNamespace>
     <AssemblyName>GTBGMLibraryEditor</AssemblyName>
@@ -74,13 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Entities\MusicInf.cs" />
-    <Compile Include="PlaylistEditWindow.xaml.cs">
-      <DependentUpon>PlaylistEditWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utils\MiscExtensions.cs" />
     <Compile Include="Utils\OptimizedStringTable.cs" />
-    <Page Include="BGMLTrackEditWindow.xaml">
+    <Page Include="MusicInfEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,20 +88,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BGMLTrackEditWindow.xaml.cs">
-      <DependentUpon>BGMLTrackEditWindow.xaml</DependentUpon>
+    <Compile Include="MusicInfEditWindow.xaml.cs">
+      <DependentUpon>MusicInfEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Entities\BGML.cs" />
-    <Compile Include="Entities\BGMLTrack.cs" />
-    <Compile Include="Entities\BGML_Playlist.cs" />
+    <Compile Include="Entities\MusicInf.cs" />
+    <Compile Include="Entities\Track.cs" />
+    <Compile Include="Entities\Playlist.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PlaylistEditWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -125,7 +117,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
