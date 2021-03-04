@@ -1,7 +1,7 @@
-﻿<Application x:Class="GTBGMLibraryEditor.App"
+﻿<Application x:Class="GTMusicInfEditor.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GTBGMLibraryEditor"
+             xmlns:local="clr-namespace:GTMusicInfEditor"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
