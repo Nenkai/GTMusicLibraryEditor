@@ -1,5 +1,5 @@
 # GTBGMLibraryEditor
-A tool to view library track listing &amp; playlists for Gran Turismo Prologue/5/6/Sport, with rebuild support for GT5 and GT6.
+A tool to view library track listing &amp; playlists for Gran Turismo 4/5 Prologue/5/6/Sport, with rebuild support for GT5 and GT6.
 
 Allows you to add built in tracks into the games, aswell as change the playlists that play in certain sections of the game.
 
