@@ -43,13 +43,20 @@
             </TabItem>
             <TabItem Header="Playlists">
                 <Grid Background="#FFE5E5E5">
-                    <ListView Name="lvSFX" MouseDoubleClick="lvSFX_MouseDoubleClick">
+                    <ListView Name="lvPlaylists" MouseDoubleClick="lvPlaylists_MouseDoubleClick">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}" Width="160"/>
                                 <GridViewColumn Header="Track Indexes" DisplayMemberBinding="{Binding TrackIndexesNames}" Width="600"/>
                             </GridView>
                         </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add New" Click="lvContextPlaylist_AddNew"/>
+                                <MenuItem Header="Edit" Click="lvContextPlaylist_Edit"/>
+                                <MenuItem Header="Remove" Click="lvContextPlaylist_Remove"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
                     </ListView>
                 </Grid>
             </TabItem>

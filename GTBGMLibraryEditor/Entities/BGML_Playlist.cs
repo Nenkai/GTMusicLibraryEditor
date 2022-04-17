@@ -6,7 +6,7 @@ namespace GTBGMLibraryEditor.Entities
     public class BGML_Playlist
     {
         public string Name { get; set; }
-        public List<int> TrackIndexes { get; set; }
+        public List<int> TrackIndexes { get; set; } = new List<int>();
         public string TrackIndexesNames
         {
             get

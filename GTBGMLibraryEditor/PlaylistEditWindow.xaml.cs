@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 using GTBGMLibraryEditor.Entities;
 
@@ -35,6 +36,8 @@ namespace GTBGMLibraryEditor
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            tb_PlaylistName.Text = _playlist.Name;
+
             PopulatePlaylistTracks();
             PopulateSelectableTrackList();
 
@@ -90,6 +93,27 @@ namespace GTBGMLibraryEditor
             PopulateSelectableTrackList();
 
             Edited = true;
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (tb_PlaylistName.Text == _playlist.Name)
+                return;
+
+            if (!tb_PlaylistName.Text.All(c => char.IsLetterOrDigit(c) || c == '_'))
+            {
+                MessageBox.Show("Playlist name must have only letters, digits, or underscores.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                e.Cancel = true;
+                return;
+            }
+
+            var playlistWithSameName = _library.Playlists.Find(p => p.Name == tb_PlaylistName.Text && p != _playlist);
+            if (playlistWithSameName != null)
+            {
+                MessageBox.Show("A playlist with the same name already exists.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                e.Cancel = true;
+                return;
+            }
         }
     }
 }

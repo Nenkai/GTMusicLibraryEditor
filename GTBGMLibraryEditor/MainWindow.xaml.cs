@@ -135,6 +135,53 @@ namespace GTBGMLibraryEditor
             }
         }
 
+        private void lvContextPlaylist_AddNew(object sender, RoutedEventArgs e)
+        {
+            if (Library is null)
+                return;
+
+            var entry = new BGML_Playlist();
+            entry.Name = $"playlist_{Library.Playlists.Count}";
+
+            var dialog = new PlaylistEditWindow(Library, entry);
+            dialog.Edited = true;
+            dialog.ShowDialog();
+            if (dialog.Edited)
+            {
+                Library.Playlists.Add(entry);
+                UpdatePlaylistsList();
+
+                lvPlaylists.SelectedItem = entry;
+                lvPlaylists.ScrollIntoView(lvPlaylists.SelectedItem);
+            }
+        }
+
+        private void lvContextPlaylist_Edit(object sender, RoutedEventArgs e)
+        {
+            if (Library is null || lvPlaylists.SelectedIndex == -1)
+                return;
+
+            var dialog = new PlaylistEditWindow(Library, (BGML_Playlist)lvPlaylists.SelectedItem);
+            dialog.ShowDialog();
+            if (dialog.Edited)
+                UpdatePlaylistsList();
+        }
+
+        private void lvContextPlaylist_Remove(object sender, RoutedEventArgs e)
+        {
+            if (Library is null || lvPlaylists.SelectedIndex == -1)
+                return;
+
+            var playlist = (BGML_Playlist)lvPlaylists.SelectedItem;
+            var result = MessageBox.Show($"Are you sure that you want to remove playlist \"{playlist.Name}\"?", "A friendly prompt", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Library.RemovePlaylist(playlist);
+                UpdateTrackList();
+                UpdatePlaylistsList();
+            }
+        }
+
         public void UpdateTrackList()
         {
             lvTracks.ItemsSource = Library.Tracks;
@@ -143,16 +190,16 @@ namespace GTBGMLibraryEditor
 
         public void UpdatePlaylistsList()
         {
-            lvSFX.ItemsSource = Library.Playlists;
-            lvSFX.Items.Refresh();
+            lvPlaylists.ItemsSource = Library.Playlists;
+            lvPlaylists.Items.Refresh();
         }
 
-        private void lvSFX_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void lvPlaylists_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (Library is null || lvSFX.SelectedIndex == -1)
+            if (Library is null || lvPlaylists.SelectedIndex == -1)
                 return;
 
-            var dialog = new PlaylistEditWindow(Library, (BGML_Playlist)lvSFX.SelectedItem);
+            var dialog = new PlaylistEditWindow(Library, (BGML_Playlist)lvPlaylists.SelectedItem);
             dialog.ShowDialog();
             if (dialog.Edited)
                 UpdatePlaylistsList();

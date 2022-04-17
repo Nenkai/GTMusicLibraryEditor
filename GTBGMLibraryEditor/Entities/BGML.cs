@@ -42,6 +42,11 @@ namespace GTBGMLibraryEditor.Entities
                 Tracks[i].Index = i;
         }
 
+        public void RemovePlaylist(BGML_Playlist playlist)
+        {
+            Playlists.Remove(playlist);
+        }
+
         public static BGML ReadFromFile(string path)
         {
             using (var fs = new FileStream(path, FileMode.Open))

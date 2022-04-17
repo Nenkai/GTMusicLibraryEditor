@@ -5,31 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GTBGMLibraryEditor"
         mc:Ignorable="d"
-        Title="PlaylistEditWindow" Height="450" Width="800"
-        Loaded="Window_Loaded">
+        Title="PlaylistEditWindow" Height="450" Width="900"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
     <DockPanel LastChildFill="True">
-        <DockPanel DockPanel.Dock="Top" Height="30" Background="DarkGray" LastChildFill="True">
-            <Button DockPanel.Dock="Right" Name="btn_AddTrack" Content="Add Track" Click="btn_AddTrack_Click"/>
-            <ComboBox DockPanel.Dock="Left" Name="cb_TrackPicker" />
+        <Grid DockPanel.Dock="Left" MinWidth="200" Width="200">
+            <Label Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45"/>
+            <TextBox Name="tb_PlaylistName" HorizontalAlignment="Left" Margin="60,14,0,0" VerticalAlignment="Top" Width="130" Height="22"/>
+        </Grid>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" Height="26" Background="DarkGray">
+                <Button DockPanel.Dock="Right" Name="btn_AddTrack" MinWidth="70" Content="Add Track" Click="btn_AddTrack_Click"/>
+                <ComboBox DockPanel.Dock="Left" Name="cb_TrackPicker" />
+            </DockPanel>
+            <ListView Name="lv_PlaylistTracks" DockPanel.Dock="Bottom">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" Width="40"/>
+                        <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}" Width="140"/>
+                        <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}" Width="60"/>
+                        <GridViewColumn Header="Track Name" DisplayMemberBinding="{Binding TrackName}"  Width="300"/>
+                        <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}" Width="160"/>
+                        <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}"  Width="120"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Remove" Click="lvContextTrackPlaylist_Remove"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
         </DockPanel>
-        <ListView Name="lv_PlaylistTracks" DockPanel.Dock="Right">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" Width="40"/>
-                    <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}" Width="140"/>
-                    <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}" Width="60"/>
-                    <GridViewColumn Header="Track Name" DisplayMemberBinding="{Binding TrackName}"  Width="300"/>
-                    <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}" Width="160"/>
-                    <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}"  Width="120"/>
-                </GridView>
-            </ListView.View>
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Remove" Click="lvContextTrackPlaylist_Remove"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
-        </ListView>
-
     </DockPanel>
 
 </Window>
