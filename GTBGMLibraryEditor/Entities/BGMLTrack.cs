@@ -16,13 +16,17 @@ namespace GTBGMLibraryEditor.Entities
         public string Artist { get; set; }
         public string Genre { get; set; }
 
-        public LibraryTrackFormat Format { get; set; }
+        public LibraryTrackFormat Format { get; set; } = LibraryTrackFormat.SGX;
+        public bool HasHeader { get; set; } = false;
+
     }
 
+    // GT6 1.22 EU - FUN_0091a9e8
     public enum LibraryTrackFormat
     {
-        ATRAC3 = 0,
-        SGB = 2,
-        SXDF = 259,
+        ATRAC3PLUS = 0,
+        MP3 = 1,
+        SGX = 2, // sgb/sgh
+        SNDX = 3,
     }
 }

@@ -28,6 +28,8 @@ namespace GTBGMLibraryEditor
             _track = track;
             InitializeComponent();
             this.DataContext = track;
+
+            cb_TrackFormatType.SelectedIndex = (int)track.Format;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -37,6 +39,7 @@ namespace GTBGMLibraryEditor
             _track.Artist = tb_Artist.Text;
             _track.TrackName = tb_TrackName.Text;
             _track.Genre = tb_Genre.Text;
+            _track.Format = (LibraryTrackFormat)cb_TrackFormatType.SelectedIndex;
 
             Saved = true;
             Close();

@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GTBGMLibraryEditor"
         mc:Ignorable="d"
-        Title="Gran Turismo BGM Library Editor" Height="700" Width="860">
+        Title="Gran Turismo BGM Library Editor" Height="700" Width="900"
+        AllowDrop="True" 
+        Drop="Window_Drop">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="24" >
             <MenuItem Header="_File" Height="24">
@@ -20,7 +22,7 @@
         <TabControl DockPanel.Dock="Bottom">
             <TabItem Header="Tracks">
                 <Grid Background="#FFE5E5E5">
-                    <ListView Name="lvTracks">
+                    <ListView Name="lvTracks" MouseDoubleClick="lvTracks_MouseDoubleClick">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" Width="40"/>
@@ -29,6 +31,7 @@
                                 <GridViewColumn Header="Track Name" DisplayMemberBinding="{Binding TrackName}"  Width="300"/>
                                 <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}" Width="160"/>
                                 <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}"  Width="120"/>
+                                <GridViewColumn Header="Format" DisplayMemberBinding="{Binding Format}"  Width="80"/>
                             </GridView>
                         </ListView.View>
                         <ListView.ContextMenu>

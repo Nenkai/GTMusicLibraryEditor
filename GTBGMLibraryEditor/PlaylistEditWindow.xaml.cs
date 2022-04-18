@@ -37,7 +37,7 @@ namespace GTBGMLibraryEditor
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             tb_PlaylistName.Text = _playlist.Name;
-
+            
             PopulatePlaylistTracks();
             PopulateSelectableTrackList();
 
@@ -97,6 +97,13 @@ namespace GTBGMLibraryEditor
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            if (string.IsNullOrEmpty(tb_PlaylistName.Text))
+            {
+                MessageBox.Show("Playlist name must not be empty.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                e.Cancel = true;
+                return;
+            }
+
             if (tb_PlaylistName.Text == _playlist.Name)
                 return;
 
@@ -114,6 +121,9 @@ namespace GTBGMLibraryEditor
                 e.Cancel = true;
                 return;
             }
+
+            _playlist.Name = tb_PlaylistName.Text;
+            Edited = true;
         }
     }
 }

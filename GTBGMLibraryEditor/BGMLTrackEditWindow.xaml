@@ -5,19 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GTBGMLibraryEditor"
         mc:Ignorable="d"
-        Title="Track Edit/Add" Height="230" Width="500">
+        Title="Track Edit/Add" Height="264" Width="500"
+        WindowStartupLocation="CenterOwner" 
+        ResizeMode="NoResize">
     <Grid>
         <Label Content="Track Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="74"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="74"/>
         <Label Content="File Name" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="74"/>
         <Label Content="Artist" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="74"/>
         <Label Content="Genre" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="74"/>
-        <Button Content="Save" Margin="407,165,10,0" VerticalAlignment="Top" Height="24" Click="ButtonSave_Click"/>
+        <Button Content="Save" Margin="407,194,10,0" VerticalAlignment="Top" Height="24" Click="ButtonSave_Click"/>
         <TextBox Height="23" Name="tb_TrackName" Text="{Binding Path=TrackName, Mode=OneWay}" Margin="89,14,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox Height="23" Name="tb_Label" Text="{Binding Path=Label, Mode=OneWay}" Margin="89,45,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox Height="23" Name="tb_FileName" Text="{Binding Path=FileName, Mode=OneWay}" Margin="89,75,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox Height="23" Name="tb_Artist" Text="{Binding Path=Artist, Mode=OneWay}" Margin="89,106,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox Height="23" Name="tb_Genre" Text="{Binding Path=Genre, Mode=OneWay}" Margin="89,137,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ComboBox Name="cb_TrackFormatType" Margin="63,167,184,0" VerticalAlignment="Top">
+            <ComboBoxItem Content="ATRAC3PLUS (.at3, for GTPSP, GTHD, GT5P Demo)"/>
+            <ComboBoxItem Content="MP3 (.mp3,for GTPSP, GTHD, GT5P Demo (? untested))"/>
+            <ComboBoxItem Content="SGX (.sgd/sgh, for GT5P, GT5, GT6)"/>
+            <ComboBoxItem Content="SNDX (.snx, for GT Sport)"/>
+        </ComboBox>
+        <Label Content="Format" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="48"/>
+        <CheckBox Name="checkBox_EmbeddedHeader" IsChecked="{Binding Path=HasHeader}" Content="Embedded Header (GTS)" Margin="310,170,24,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

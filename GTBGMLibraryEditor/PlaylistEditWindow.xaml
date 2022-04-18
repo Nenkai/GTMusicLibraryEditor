@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="PlaylistEditWindow" Height="450" Width="900"
         Loaded="Window_Loaded"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        WindowStartupLocation="CenterOwner">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Left" MinWidth="200" Width="200">
             <Label Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45"/>

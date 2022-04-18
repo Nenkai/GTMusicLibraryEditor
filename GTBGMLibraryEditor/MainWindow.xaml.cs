@@ -39,37 +39,7 @@ namespace GTBGMLibraryEditor
 
             if (openDialog.ShowDialog() == true)
             {
-                BGML bgml;
-                try
-                {
-                    bgml = BGML.ReadFromFile(openDialog.FileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error occured while loading file: {ex.Message}", "A not so friendly prompt", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-
-                Library = bgml;
-
-                UpdateTrackList();
-                UpdatePlaylistsList();
-
-                if (bgml.Format == LibraryTrackFormat.SXDF)
-                {
-                    MessageBox.Show($"This library uses SXDF headers (GTSP), and contains track metadata in it. It cannot be saved yet.", "Cannot save", MessageBoxButton.OK, MessageBoxImage.Information);
-                    menuItem_Save.IsEnabled = false;
-                }
-                else if (bgml.HasExtraTrackMetadata)
-                {
-                    MessageBox.Show($"This library contains track metadata for each track. It cannot be saved yet.", "Cannot save", MessageBoxButton.OK, MessageBoxImage.Information);
-                    menuItem_Save.IsEnabled = false;
-                }
-                else
-                {
-                    menuItem_Save.IsEnabled = true;
-                }
+                ReadBGML(openDialog.FileName);
             }
         }
 
@@ -100,6 +70,7 @@ namespace GTBGMLibraryEditor
 
             var entry = new BGMLTrack();
             var dialog = new BGMLTrackEditWindow(entry);
+            dialog.Owner = this;
             dialog.ShowDialog();
             if (dialog.Saved)
             {
@@ -111,13 +82,7 @@ namespace GTBGMLibraryEditor
 
         private void lvContextTrack_Edit(object sender, RoutedEventArgs e)
         {
-            if (Library is null || lvTracks.SelectedIndex == -1)
-                return;
-
-            var dialog = new BGMLTrackEditWindow((BGMLTrack)lvTracks.SelectedItem);
-            dialog.ShowDialog();
-            if (dialog.Saved)
-                UpdateTrackList();
+            EditTrackSelected();
         }
 
         private void lvContextTrack_Remove(object sender, RoutedEventArgs e)
@@ -144,6 +109,7 @@ namespace GTBGMLibraryEditor
             entry.Name = $"playlist_{Library.Playlists.Count}";
 
             var dialog = new PlaylistEditWindow(Library, entry);
+            dialog.Owner = this;
             dialog.Edited = true;
             dialog.ShowDialog();
             if (dialog.Edited)
@@ -158,13 +124,7 @@ namespace GTBGMLibraryEditor
 
         private void lvContextPlaylist_Edit(object sender, RoutedEventArgs e)
         {
-            if (Library is null || lvPlaylists.SelectedIndex == -1)
-                return;
-
-            var dialog = new PlaylistEditWindow(Library, (BGML_Playlist)lvPlaylists.SelectedItem);
-            dialog.ShowDialog();
-            if (dialog.Edited)
-                UpdatePlaylistsList();
+            EditPlaylistSelected();
         }
 
         private void lvContextPlaylist_Remove(object sender, RoutedEventArgs e)
@@ -182,6 +142,72 @@ namespace GTBGMLibraryEditor
             }
         }
 
+
+        private void lvPlaylists_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            EditPlaylistSelected();
+        }
+
+        private void lvTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            EditTrackSelected();
+        }
+
+        private void Window_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 1 || !files[0].EndsWith(".lib"))
+                    return;
+
+                ReadBGML(files[0]);
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Credits:\n" +
+                "- Nenkai#9075 - GT BGM Library Editor Tool Creator & Research\n" +
+                "- TheAdmiester - Initial Research for the file format", "About", MessageBoxButton.OK);
+        }
+
+        #region Non Events
+        private void ReadBGML(string fileName)
+        {
+            BGML bgml;
+            try
+            {
+                bgml = BGML.ReadFromFile(fileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured while loading file: {ex.Message}", "A not so friendly prompt", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
+            Library = bgml;
+
+            UpdateTrackList();
+            UpdatePlaylistsList();
+
+            if (bgml.Format == LibraryTrackFormat.SNDX)
+            {
+                MessageBox.Show($"This library uses SXDF headers (GTSP), and contains track metadata in it. It cannot be saved yet.", "Cannot save", MessageBoxButton.OK, MessageBoxImage.Information);
+                menuItem_Save.IsEnabled = false;
+            }
+            else if (bgml.HasExtraTrackMetadata)
+            {
+                MessageBox.Show($"This library contains track metadata for each track. It cannot be saved yet.", "Cannot save", MessageBoxButton.OK, MessageBoxImage.Information);
+                menuItem_Save.IsEnabled = false;
+            }
+            else
+            {
+                menuItem_Save.IsEnabled = true;
+            }
+        }
+
         public void UpdateTrackList()
         {
             lvTracks.ItemsSource = Library.Tracks;
@@ -194,22 +220,30 @@ namespace GTBGMLibraryEditor
             lvPlaylists.Items.Refresh();
         }
 
-        private void lvPlaylists_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void EditTrackSelected()
+        {
+            if (Library is null || lvTracks.SelectedIndex == -1)
+                return;
+
+            var dialog = new BGMLTrackEditWindow((BGMLTrack)lvTracks.SelectedItem);
+            dialog.Owner = this;
+            dialog.ShowDialog();
+            if (dialog.Saved)
+                UpdateTrackList();
+        }
+
+        private void EditPlaylistSelected()
         {
             if (Library is null || lvPlaylists.SelectedIndex == -1)
                 return;
 
             var dialog = new PlaylistEditWindow(Library, (BGML_Playlist)lvPlaylists.SelectedItem);
+            dialog.Owner = this;
             dialog.ShowDialog();
             if (dialog.Edited)
                 UpdatePlaylistsList();
         }
+        #endregion
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Credits:\n" +
-                "- Nenkai#9075 - GT BGM Library Editor Tool Creator & Research\n" +
-                "- TheAdmiester - Initial Research for the file format", "About", MessageBoxButton.OK);
-        }
     }
 }

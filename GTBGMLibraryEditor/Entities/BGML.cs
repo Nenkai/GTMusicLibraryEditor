@@ -80,7 +80,10 @@ namespace GTBGMLibraryEditor.Entities
                     BGMLTrack track = new BGMLTrack();
                     br.Position = trackTreeOffset + (i * 0x30);
                     int fileNameOffset = br.ReadInt32();
-                    bgml.Format = (LibraryTrackFormat)br.ReadInt32();
+                    bgml.Format = (LibraryTrackFormat)br.ReadByte();
+                    track.HasHeader = br.ReadBoolean();
+                    br.Position += 2;
+
                     int idStringOffset = br.ReadInt32();
                     br.Position += 4;
 
@@ -208,7 +211,9 @@ namespace GTBGMLibraryEditor.Entities
                 {
                     br.Position = 0x30 + (i * 0x30);
                     br.WriteInt32(trackStringTable.GetStringOffset(Tracks[i].Label));
-                    br.WriteInt32((int)Tracks[i].Format);
+                    br.WriteByte((byte)Tracks[i].Format);
+                    br.WriteBoolean(Tracks[i].HasHeader);
+                    br.Position += 2;
                     br.WriteInt32(trackStringTable.GetStringOffset(Tracks[i].FileName));
                     br.Position += 8;
                     br.WriteInt32(trackStringTable.GetStringOffset(Tracks[i].TrackName));
